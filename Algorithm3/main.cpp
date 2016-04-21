@@ -1,24 +1,22 @@
 #include <iostream>
-#include <time.h>
 
-#include "stack.h"
-#include "listiterator.h"
+#include "sorter.h"
 #include "list.h"
 
 using namespace std;
 
 int main(){
-    srand(time(NULL));
-
-    const int size = 54;
     List<int> list;
 
     // fill list with random values
-    for(int i = 0; i < size; i++) list << rand() % 99;
+    Sorter::RandomFill(list, 54);
+
+    // insertion sort
+    Sorter::InsertionSort(list);
 
     // show list elements
-    for(auto i = list.begin(); i.end(); ++i) cout << i() << " ";
+    cout << Sorter::ListLog(list);
 
-    putchar('\n');
+    cout.put('\n');
     return 0;
 }

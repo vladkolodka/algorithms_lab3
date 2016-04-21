@@ -8,6 +8,7 @@ template <class T> class List{
     struct ListElement{
         T value;
         ListElement* next;
+        ListElement* prev;
     };
 
     typedef ListIterator<ListElement, T> iterator;
@@ -15,7 +16,7 @@ template <class T> class List{
     // first element;
     ListElement* list = 0;
 
-    ListElement* createElement(T value);
+    ListElement* createElement(T value, ListElement* prev);
     ListElement* lastElement();
 
     // recursive method for internal use
@@ -50,8 +51,11 @@ template <class T> List<T>::~List(){
 }
 
 template <class T> void List<T>::add(T elementValue){
-    if(list) lastElement()->next = createElement(elementValue);
-    else list = createElement(elementValue);
+    if(list) {
+        ListElement* last = lastElement();
+        lastElement()->next = createElement(elementValue, last);
+    }
+    else list = createElement(elementValue, 0);
 }
 template <class T> T List<T>::operator[](int index){
     if(list){
@@ -80,11 +84,12 @@ template <class T> typename List<T>::ListElement* List<T>::lastElement(){
     }
     return 0;
 }
-template <class T> typename List<T>::ListElement* List<T>::createElement(T value){
+template <class T> typename List<T>::ListElement* List<T>::createElement(T value, ListElement* prev){
     // create new element
     ListElement* p = new ListElement;
     p->value = value;
     p->next = 0;
+    p->prev = prev;
     return p;
 }
 template <class T> T List<T>::last(){
@@ -103,6 +108,7 @@ template <class T> void List<T>::clear(ListElement* elem){
 }
 template <class T> bool List<T>::remove(int index){
     // remove element by index
+    // TODO refactor (+prev)
     if(!list) return false;
 
     ListElement* p = list;

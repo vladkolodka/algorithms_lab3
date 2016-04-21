@@ -37,6 +37,6 @@ template <class T> bool Stack<T>::pop(void){
     return true;
 }
 template <class T> T Stack<T>::top(void){
-    if(position != -1)
-    return data[position];
+    if(position != -1) return data[position];
+    else return -1;
 }
