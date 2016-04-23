@@ -5,7 +5,6 @@
 
 #include "list.h"
 #include "stack.h"
-#include "listiterator.h"
 
 class Sorter{
 public:

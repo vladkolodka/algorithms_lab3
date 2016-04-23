@@ -10,4 +10,5 @@ HEADERS += \
     stack.h \
     list.h \
     listiterator.h \
-    sorter.h
+    sorter.h \
+    queue.h

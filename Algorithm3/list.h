@@ -5,6 +5,7 @@
 template <class ElementType, class T> class ListIterator;
 
 template <class T> class List{
+protected:
     struct ListElement{
         T value;
         ListElement* next;

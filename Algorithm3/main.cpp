@@ -2,6 +2,7 @@
 
 #include "sorter.h"
 #include "list.h"
+#include "queue.h"
 
 using namespace std;
 

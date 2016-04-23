@@ -1,9 +1,8 @@
 #pragma once
-#include <list.h>
 
 template <class ElementType, class T> class ListIterator{
-ElementType *pointer;
-int index = 0;
+    ElementType *pointer;
+    int index = 0;
 public:
     ListIterator(ElementType* element) : pointer(element){}
     ListIterator<ElementType, T>& clone(){
