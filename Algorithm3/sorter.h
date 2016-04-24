@@ -1,6 +1,7 @@
 #pragma once
 
-#include <time.h>
+#include <ctime>
+#include <cmath>
 #include <string>
 
 #include "list.h"
@@ -9,8 +10,8 @@
 
 class Sorter{
 public:
-    static void InsertionSort(List<int>&);
-    static int BitwiseSort(Queue<int>&);
+    static float InsertionSort(List<int>&);
+    static float BitwiseSort(Queue<int>&);
     static void RandomFill(List<int>&, int, int);
     static void RandomFill(Queue<int>&, int, int);
     static std::string ListLog(List<int>&);

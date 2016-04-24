@@ -1,12 +1,13 @@
 #include "sorter.h"
-#include <cmath>
 
-void Sorter::InsertionSort(List<int> &list){
+float Sorter::InsertionSort(List<int> &list){
     Stack<int> stack(2);
 
     auto i = list.begin();
     ++i;
 
+    clock_t start_time = clock();
+    for(int i = 0; i < 5000000; i++){}
     for(; i.end(); ++i)
         for(auto j = i.clone(); j.notFirst() && j.prev() > *j ;--j){
             stack.push(j.prev());
@@ -15,8 +16,9 @@ void Sorter::InsertionSort(List<int> &list){
             stack.pop();
         }
 
+    return static_cast<float>(clock() - start_time) / 100.0;
 }
-int Sorter::BitwiseSort(Queue<int>& queue){
+float Sorter::BitwiseSort(Queue<int>& queue){
     int length = 0;
     const int range = 10;
 
@@ -33,6 +35,9 @@ int Sorter::BitwiseSort(Queue<int>& queue){
         if(temp_length > length) length = temp_length;
     }
 
+    // sorting
+    clock_t start_time = clock();
+    for(int i = 0; i < 5000000; i++){}
     for(int i = 0; i < length; i++){
 
         for(auto j = queue.begin(); j.end(); ++j){
@@ -50,9 +55,7 @@ int Sorter::BitwiseSort(Queue<int>& queue){
             QueueArray[j].clear();
         }
     }
-
-
-    return 0;
+    return static_cast<float>(clock() - start_time) / 100.0;
 }
 void Sorter::RandomFill(List<int> &list, int size, int max_value){
     srand(time(NULL));
