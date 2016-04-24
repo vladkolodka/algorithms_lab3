@@ -10,6 +10,7 @@ public:
     ~Stack();
     bool push(T);
     bool pop(void);
+    bool isEmpty();
     T top(void);
 };
 
@@ -39,4 +40,7 @@ template <class T> bool Stack<T>::pop(void){
 template <class T> T Stack<T>::top(void){
     if(position != -1) return data[position];
     else return -1;
+}
+template <class T> bool Stack<T>::isEmpty(){
+    return position == -1;
 }

@@ -25,6 +25,7 @@ public:
     ~List();
 
     void add(T element);
+    void addOrdered(T element);
     T operator[](int i);
     int size();
 
@@ -52,6 +53,29 @@ template <class T> List<T>::~List(){
 template <class T> void List<T>::add(T elementValue){
     if(list) lastElement()->next = createElement(elementValue);
     else list = createElement(elementValue);
+}
+
+template <class T> void List<T>::addOrdered(T elementValue){
+    ListElement *newElement = createElement(elementValue);
+
+    if(!list) list = newElement;
+    else if(elementValue <= list->value){
+        newElement->next = list;
+        list = newElement;
+    } else{
+        ListElement *pointer = list;
+        while (pointer->next) {
+            if(elementValue > pointer->value && elementValue <= pointer->next->value){
+                newElement->next = pointer->next;
+                pointer->next = newElement;
+                return;
+            }
+            pointer = pointer->next;
+        }
+        pointer->next = newElement;
+        newElement->next = 0;
+    }
+
 }
 template <class T> T List<T>::operator[](int index){
     if(list){
@@ -96,7 +120,7 @@ template <class T> void List<T>::clear(){
 
     ListElement *currentNode = list;
     ListElement *tempNode;
-    while (list) {
+    while (currentNode) {
         tempNode = currentNode->next;
         delete currentNode;
         currentNode = tempNode;

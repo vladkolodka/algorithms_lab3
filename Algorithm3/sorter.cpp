@@ -1,20 +1,18 @@
 #include "sorter.h"
 
 float Sorter::InsertionSort(List<int> &list){
-    Stack<int> stack(2);
-
-    auto i = list.begin();
-    ++i;
+    Stack<int> stack(list.size());
 
     clock_t start_time = clock();
     for(int i = 0; i < 5000000; i++){}
-    for(; i.end(); ++i)
-        for(auto j = i.clone(); j.notFirst() && j.prev() > *j ;--j){
-            stack.push(j.prev());
-            j.prev() = *j;
-            *j = stack.top();
-            stack.pop();
-        }
+
+    for(auto i = list.begin(); i.end(); ++i) stack.push(*i);
+
+    list.clear();
+    while (!stack.isEmpty()) {
+        list.addOrdered(stack.top());
+        stack.pop();
+    }
 
     return static_cast<float>(clock() - start_time) / 100.0;
 }
@@ -23,6 +21,9 @@ float Sorter::BitwiseSort(Queue<int>& queue){
     const int range = 10;
 
     Queue<int> QueueArray[range];
+
+    clock_t start_time = clock();
+    for(int i = 0; i < 5000000; i++){}
 
     //  find max length
     for(auto i = queue.begin(); i.end(); ++i){
@@ -36,10 +37,7 @@ float Sorter::BitwiseSort(Queue<int>& queue){
     }
 
     // sorting
-    clock_t start_time = clock();
-    for(int i = 0; i < 5000000; i++){}
     for(int i = 0; i < length; i++){
-
         for(auto j = queue.begin(); j.end(); ++j){
             int queue_index = (*j % static_cast<int>(pow(range, i + 1))) / static_cast<int>(pow(range, i));
 

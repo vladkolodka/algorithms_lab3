@@ -12,6 +12,7 @@ public:
     void pop_front();
     T front();
     T back();
+
     using List<T>::list;
 
     using List<T>::clear;
@@ -28,9 +29,8 @@ template <class T> void Queue<T>::push_back(T value){
 template <class T> void Queue<T>::pop_front(){
     if(!list) return;
 
-    if(list->next != 0){
-        list = list->next;
-    } else list = 0;
+    if(list->next != 0) list = list->next;
+    else list = 0;
 }
 template <class T> T Queue<T>::front(){
     if(list) return list->value;
