@@ -7,7 +7,7 @@ template <class T> class Queue : private List<T>{
 public:
     Queue() {}
     bool empty();
-    int size();
+
     void push_back(T);
     void pop_front();
     T front();
@@ -17,16 +17,10 @@ public:
     using List<T>::clear;
     using List<T>::begin;
     using List<T>::end;
+    using List<T>::size;
 };
 template <class T> bool Queue<T>::empty(){
     return list;
-}
-template <class T> int Queue<T>::size(){
-    if(!list) return 0;
-    int counter = 0;
-    for(auto i = begin(); i.end(); ++i) counter++;
-
-    return counter;
 }
 template <class T> void Queue<T>::push_back(T value){
     List<T>::add(value);
@@ -36,8 +30,6 @@ template <class T> void Queue<T>::pop_front(){
 
     if(list->next != 0){
         list = list->next;
-        delete list->prev;
-        list->prev = 0;
     } else list = 0;
 }
 template <class T> T Queue<T>::front(){

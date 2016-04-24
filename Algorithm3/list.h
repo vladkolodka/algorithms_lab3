@@ -9,7 +9,6 @@ protected:
     struct ListElement{
         T value;
         ListElement* next;
-        ListElement* prev;
     };
 
     typedef ListIterator<ListElement, T> iterator;
@@ -17,7 +16,7 @@ protected:
     // first element;
     ListElement* list = 0;
 
-    ListElement* createElement(T value, ListElement* prev);
+    ListElement* createElement(T value);
     ListElement* lastElement();
 
     // recursive method for internal use
@@ -29,6 +28,7 @@ public:
 
     void add(T element);
     T operator[](int i);
+    int size();
 
     // remove element by index
     bool remove(int index);
@@ -52,11 +52,8 @@ template <class T> List<T>::~List(){
 }
 
 template <class T> void List<T>::add(T elementValue){
-    if(list) {
-        ListElement* last = lastElement();
-        lastElement()->next = createElement(elementValue, last);
-    }
-    else list = createElement(elementValue, 0);
+    if(list) lastElement()->next = createElement(elementValue);
+    else list = createElement(elementValue);
 }
 template <class T> T List<T>::operator[](int index){
     if(list){
@@ -85,12 +82,11 @@ template <class T> typename List<T>::ListElement* List<T>::lastElement(){
     }
     return 0;
 }
-template <class T> typename List<T>::ListElement* List<T>::createElement(T value, ListElement* prev){
+template <class T> typename List<T>::ListElement* List<T>::createElement(T value){
     // create new element
     ListElement* p = new ListElement;
     p->value = value;
     p->next = 0;
-    p->prev = prev;
     return p;
 }
 template <class T> T List<T>::last(){
@@ -109,7 +105,6 @@ template <class T> void List<T>::clear(ListElement* elem){
 }
 template <class T> bool List<T>::remove(int index){
     // remove element by index
-    // TODO refactor (+prev)
     if(!list) return false;
 
     ListElement* p = list;
@@ -145,6 +140,14 @@ template <class T> bool List<T>::set(int index, T value){
     }
     return false;
 }
+template <class T> int List<T>::size(){
+    if(!list) return 0;
+    int counter = 0;
+    for(auto i = begin(); i.end(); ++i) counter++;
+
+    return counter;
+}
+
 template <class T> List<T>& List<T>::operator <<(T arg){
     add(arg);
     return *this;
