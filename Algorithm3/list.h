@@ -8,19 +8,17 @@ template <class T> class List{
 protected:
     struct ListElement{
         T value;
-        ListElement* next;
+        ListElement *next;
     };
 
     typedef ListIterator<ListElement, T> iterator;
 
     // first element;
-    ListElement* list = 0;
+    ListElement *list = 0;
 
-    ListElement* createElement(T value);
-    ListElement* lastElement();
+    ListElement *createElement(T value);
+    ListElement *lastElement();
 
-    // recursive method for internal use
-    void clear(ListElement* elem);
 public:
     List();
     List(const List<T>&);
@@ -57,7 +55,7 @@ template <class T> void List<T>::add(T elementValue){
 }
 template <class T> T List<T>::operator[](int index){
     if(list){
-        ListElement* pointer = list;
+        ListElement *pointer = list;
         bool elementExists = false;
 
         for(int i = 0; i <= index && list; i++){
@@ -74,7 +72,7 @@ template <class T> T List<T>::operator[](int index){
 template <class T> typename List<T>::ListElement* List<T>::lastElement(){
     // get last element pointer
     if(list){
-        ListElement* p = list;
+        ListElement *p = list;
 
         while (p->next) p = p->next;
 
@@ -84,30 +82,32 @@ template <class T> typename List<T>::ListElement* List<T>::lastElement(){
 }
 template <class T> typename List<T>::ListElement* List<T>::createElement(T value){
     // create new element
-    ListElement* p = new ListElement;
+    ListElement *p = new ListElement;
     p->value = value;
     p->next = 0;
     return p;
 }
 template <class T> T List<T>::last(){
-    ListElement* p = lastElement();
+    ListElement *p = lastElement();
     return (p) ? p->value : -1;
 }
 template <class T> void List<T>::clear(){
     if(!list) return;
-    clear(list);
+
+    ListElement *currentNode = list;
+    ListElement *tempNode;
+    while (list) {
+        tempNode = currentNode->next;
+        delete currentNode;
+        currentNode = tempNode;
+    }
     list = 0;
-}
-template <class T> void List<T>::clear(ListElement* elem){
-    // internal usage only
-    if(elem->next) clear(elem->next);
-    delete elem;
 }
 template <class T> bool List<T>::remove(int index){
     // remove element by index
     if(!list) return false;
 
-    ListElement* p = list;
+    ListElement *p = list;
     int i = 0;
 
     while (p->next) {
